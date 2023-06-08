@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/Bootstrap.unity
+    guid: d7d03d4380a20da40882d6c6bb2295e5
+  - enabled: 1
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/MenuScene.unity
+    guid: 8e79bffb02a2a1848ac0eecf862d8e23
+  - enabled: 1
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/TestScene.unity
+    guid: 46f9109d1609bfa42a0a4decd78e71fc
+  - enabled: 1
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/BlueWorld.unity
+    guid: ed815ba08c9714a45853532e38ad044d
+  - enabled: 1
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/GreenWorld.unity
+    guid: b5ff3a08c1101a04fb16cd9da9879514
+  m_configObjects: {}

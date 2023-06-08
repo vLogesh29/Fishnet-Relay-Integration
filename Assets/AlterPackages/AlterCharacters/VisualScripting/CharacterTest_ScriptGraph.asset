@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: CharacterTest_ScriptGraph
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"Test","summary":null,"pan":{"x":-1168.74,"y":182.3407},"zoom":1.0,"elements":[{"defaultValues":{"Animation
+      clip":{"$content":0,"$type":"UnityEngine.Object"},"Avatar mask":null,"Blend
+      Mode":{"$content":"Blend","$type":"Alter.Runtime.Character.BlendMode"},"Delay":{"$content":0.0,"$type":"System.Single"},"Speed":{"$content":1.0,"$type":"System.Single"},"Use
+      rootmotion":{"$content":true,"$type":"System.Boolean"},"Transition In":{"$content":0.1,"$type":"System.Single"},"Transition
+      Out":{"$content":0.1,"$type":"System.Single"},"wait To Complete":{"$content":true,"$type":"System.Boolean"}},"position":{"x":-1398.0,"y":-175.0},"guid":"5adaebb5-1d1c-48e0-851c-540ff54a6990","$version":"A","$type":"CharacterPlayGesture","$id":"9"},{"coroutine":false,"defaultValues":{},"position":{"x":-1613.0,"y":-214.0},"guid":"2ba8f8da-ff0f-4d9e-9e13-8c85130d9dd0","$version":"A","$type":"Unity.VisualScripting.OnEnable","$id":"11"},{"specifyFallback":false,"kind":"Object","defaultValues":{"name":{"$content":"charcter","$type":"System.String"},"object":null},"position":{"x":-1731.0,"y":-5.0},"guid":"71b0f731-047c-4db9-85de-f11212c85039","$version":"A","$type":"Unity.VisualScripting.GetVariable","$id":"13"},{"sourceUnit":{"$ref":"11"},"sourceKey":"trigger","destinationUnit":{"$ref":"9"},"destinationKey":"input","guid":"9a0c95dc-e6b3-4909-b0ee-08c4380f3329","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"13"},"sourceKey":"value","destinationUnit":{"$ref":"9"},"destinationKey":"Character","guid":"3d11a064-d044-40e9-b8fc-1f740454cb15","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 7400058, guid: d83d395fd464b67438cebe05f5bfd990, type: 3}
