@@ -10,16 +10,14 @@ public class PlanetSelectionUI : MonoBehaviour
     [SerializeField] private SceneAsset PlanetScene;
 #endif
     [field: SerializeField] public string PlanetSceneName { get; private set; } = null;
-    private Button selectBtn;
-    private Outline selectedOutline;
+    [SerializeField] private Button selectBtn;
+    [SerializeField] private Outline selectedOutline;
 
     private void Awake()
     {
 #if UNITY_EDITOR
         PlanetSceneName = PlanetScene.name;
 #endif
-        selectBtn = GetComponent<Button>();
-        selectedOutline = GetComponent<Outline>();
     }
     private void Start()
     {

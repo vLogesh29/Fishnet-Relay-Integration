@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 428575748}
   - component: {fileID: 428575747}
   - component: {fileID: 428575749}
+  - component: {fileID: 428575750}
   m_Layer: 0
   m_Name: BootstrapManager
   m_TagString: Untagged
@@ -200,9 +201,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuScene: {fileID: 102900000, guid: 8e79bffb02a2a1848ac0eecf862d8e23, type: 3}
+  constDontDestroyOnLoadScenes:
+  - {fileID: 102900000, guid: d7d03d4380a20da40882d6c6bb2295e5, type: 3}
   menuSceneName: MenuScene
+  constDontDestroyOnLoadSceneNames:
+  - Bootstrap
   _networkManager: {fileID: 7443408886507593704}
   _fishySteamworks: {fileID: 7443408886507593709}
+--- !u!114 &428575750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428575746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef4bffeda13d7a748973ff9204401c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &779628280
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,10 +288,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 779628281}
   _networkObjectCache: {fileID: 779628281}
-  constDontDestroyOnLoadScenes:
-  - {fileID: 102900000, guid: d7d03d4380a20da40882d6c6bb2295e5, type: 3}
-  constDontDestroyOnLoadSceneNames:
-  - Bootstrap
 --- !u!4 &779628283
 Transform:
   m_ObjectHideFlags: 0
@@ -654,8 +667,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845659738863557451, guid: 2da3dcc22749e7f4280737786d898334,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845659738863557451, guid: 2da3dcc22749e7f4280737786d898334,
+        type: 3}
       propertyPath: m_SizeDelta.y
-      value: 350
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4845788016647226013, guid: 2da3dcc22749e7f4280737786d898334,
         type: 3}
@@ -853,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 5555526728804326072, guid: fce00c67bdb317545a937879d0da8f37,
+  _playerPrefab: {fileID: 189964776282520890, guid: decf5ce42ed9f2641970ead818e8cdb6,
     type: 3}
   _addToDefaultScene: 1
   Spawns: []
@@ -869,7 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c95dfde7d73b54dbbdc23155d35d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _refreshDefaultPrefabs: 0
+  _refreshDefaultPrefabs: 1
   _runInBackground: 1
   _dontDestroyOnLoad: 1
   _objectPool: {fileID: 0}
