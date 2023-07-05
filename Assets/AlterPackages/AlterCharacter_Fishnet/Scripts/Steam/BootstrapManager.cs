@@ -208,7 +208,4 @@ public class BootstrapManager : MonoBehaviour
         }
 
     }
-    private static void CloseUnwantedScenesCouroutine(string[] scenesToDontDestroyOnLoad = null)
-    {
-    }
 }
