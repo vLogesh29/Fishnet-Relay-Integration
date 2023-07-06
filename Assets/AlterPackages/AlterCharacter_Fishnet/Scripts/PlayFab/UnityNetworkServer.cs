@@ -6,19 +6,28 @@ using FishNet.Connection;
 using FishNet.Managing;
 using FishNet;
 using FishNet.Broadcast;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using FishNet.Transporting;
+using TMPro;
 
 namespace PlayFab.Networking
 {
     public class UnityNetworkServer : MonoBehaviour
     {
+        public const string DEFAULT_SERVER_IP = "localhost";
+        public const int DEFAULT_PORT_NO = 7777;
+
         public static UnityNetworkServer Instance { get; private set; }
+        [SerializeField] CanvasGroup _networkHUD;
+        [SerializeField] TMP_InputField _serverIP;
+        [SerializeField] TMP_InputField _portNo;
 
-        public PlayerEvent OnPlayerAdded = new PlayerEvent();
-        public PlayerEvent OnPlayerRemoved = new PlayerEvent();
+        public PlayerEvent OnPlayerAdded = new();
+        public PlayerEvent OnPlayerRemoved = new();
 
-        public int MaxConnections = 100;
-        public int Port = 7777; // overwritten by the code in AgentListener.cs
+        [Range(1, 9999)] public int MaxConnections = 4095; // max value
+        public string ServerAddress = DEFAULT_SERVER_IP;
+        public int Port = DEFAULT_PORT_NO; // overwritten by the code in AgentListener.cs
+        //public IPAddressType AddressType = IPAddressType.IPv4;
 
         public List<UnityNetworkConnection> Connections
         {
@@ -45,6 +54,22 @@ namespace PlayFab.Networking
         {
             Instance = this;
 
+            _serverIP.text = ServerAddress;
+            _portNo.text = Port.ToString();
+
+            _serverIP.onValueChanged.AddListener((string val) =>
+            {
+                ServerAddress = val;
+
+                if ((ServerAddress.Split('.').Length - 1) != 4) // in case of ipv6, count of ':' occurances == 6
+                    ServerAddress = DEFAULT_SERVER_IP;
+            });
+            _portNo.onValueChanged.AddListener((string val) =>
+            {
+                if (!int.TryParse(val, out Port))
+                    Port = DEFAULT_PORT_NO;
+            });
+
             NetworkManager.ServerManager.RegisterBroadcast<ReceiveAuthenticateMessage>(OnReceiveAuthenticate);
             NetworkManager.ServerManager.OnRemoteConnectionState += NetworkServer_OnRemoteConnectionStateChanged;
         }
@@ -64,6 +89,11 @@ namespace PlayFab.Networking
 
             //NetworkManager.TransportManager.Transport.SetPort((ushort)Port);
             NetworkManager.TransportManager.Transport.SetMaximumClients(MaxConnections);
+            if (ServerAddress != string.Empty)
+            {
+                //NetworkManager.TransportManager.Transport .SetServerBindAddress(ServerAddress, AddressType);
+                NetworkManager.TransportManager.Transport.SetClientAddress(ServerAddress);
+            }
             NetworkManager.ServerManager.StartConnection((ushort)Port);
         }
 
@@ -86,6 +116,7 @@ namespace PlayFab.Networking
         public void OnServerConnect(NetworkConnection conn)
         {
             //base.OnServerConnect(conn);
+            _networkHUD.alpha = 0;
 
             Debug.LogWarning("Client Connected");
             var uconn = _connections.Find(c => c.ConnectionAddress == conn.GetAddress());
@@ -111,6 +142,7 @@ namespace PlayFab.Networking
         public void OnServerDisconnect(NetworkConnection conn)
         {
             //base.OnServerDisconnect(conn);
+            _networkHUD.alpha = 1;
 
             var uconn = _connections.Find(c => c.ConnectionAddress == conn.GetAddress());
             if (uconn != null)

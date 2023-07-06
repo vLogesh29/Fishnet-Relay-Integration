@@ -781,7 +781,8 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: FISHNET;FISHNET_V3;STEAMWORKS_NET;/EOS;/Vivox;/unsafe;ENABLE_PLAYFABSERVER_API
+    Server: FISHNET;FISHNET_V3;/EOS;/Vivox;/unsafe;STEAMWORKS_NET;ENABLE_PLAYFABSERVER_API
+    Standalone: FISHNET;FISHNET_V3;/EOS;/Vivox;/unsafe;STEAMWORKS_NET;ENABLE_PLAYFABSERVER_API
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -805,7 +806,7 @@ PlayerSettings:
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 0
+  selectedPlatform: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 0
@@ -891,11 +892,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 7fcc6e22-65a7-44c9-918c-da920bc6a480
+  cloudProjectId: 4111c0c9-7fea-4517-9056-1d5ad58ef7b9
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Fishnet Sample
-  organizationId: vlogesh2001
+  projectName: Fishnet-Relays
+  organizationId: logeshv_leaguex
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

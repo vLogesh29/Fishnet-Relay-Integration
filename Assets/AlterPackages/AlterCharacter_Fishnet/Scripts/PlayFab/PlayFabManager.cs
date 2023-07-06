@@ -73,7 +73,7 @@ public class PlayFabManager : MonoBehaviour
         {
             output += "\n[" + item.Position + ":" + item.PlayFabId + "] => " + item.StatValue;
         }
-        output += "===== ===== ===== ===== ===== =====";
+        output += "\n===== ===== ===== ===== ===== =====";
         Debug.Log(output);
     }
 }
