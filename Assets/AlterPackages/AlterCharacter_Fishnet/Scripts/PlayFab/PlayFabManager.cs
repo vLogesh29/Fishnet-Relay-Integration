@@ -68,7 +68,7 @@ public class PlayFabManager : MonoBehaviour
 
     private void OnLoginCountLeaderboardFetched(GetLeaderboardResult result)
     {
-        string output = "===== Login Count Leaderboard =====";
+        string output = "\n===== Login Count Leaderboard =====";
         foreach(var item in result.Leaderboard)
         {
             output += "\n[" + item.Position + ":" + item.PlayFabId + "] => " + item.StatValue;

@@ -2,7 +2,6 @@
   "dependencies": {
     "com.heathen.steamworksfoundation": "https://github.com/heathen-engineering/SteamworksFoundation.git?path=Unity/com.heathen.steamworksfoundation",
     "com.heathen.systemcore": "https://github.com/heathen-engineering/SystemCore.git?path=/com.heathen.systemcore",
-    "com.playeveryware.eos": "https://github.com/PlayEveryWare/eos_plugin_for_unity_upm.git",
     "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.8.9",

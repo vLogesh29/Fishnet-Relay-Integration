@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.mathematics": "1.2.5"
       },
-      "hash": "3fc1f33a48211720c2ad7bc583b0b19e2f356695"
+      "hash": "30522fa3d233a73b6d192831ca879905d41df9b2"
     },
     "com.heathen.systemcore": {
       "version": "https://github.com/heathen-engineering/SystemCore.git?path=/com.heathen.systemcore",
@@ -16,17 +16,7 @@
       "dependencies": {
         "com.unity.mathematics": "1.2.5"
       },
-      "hash": "7c126795e8dfef5b599e05cbe9f83dff55978f00"
-    },
-    "com.playeveryware.eos": {
-      "version": "https://github.com/PlayEveryWare/eos_plugin_for_unity_upm.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.editorcoroutines": "1.0.0"
-      },
-      "hash": "07b08690e02442cbb1ef74ed4d514bd06f62dc5e"
+      "hash": "6d58a14fd74c493bdad1476051e5cd48d3553499"
     },
     "com.rlabrecque.steamworks.net": {
       "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
