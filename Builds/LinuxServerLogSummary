@@ -1,0 +1,28 @@
+#Logs:
+Given Config Path: /FishnetRelayDemo_Data/gsdkConfig.json
+      C<-<-<-<-<- PlayFabMultiplayerAgentAPI Connection Config ->->->->->
+
+PlayFabMultiplayerAgentAPI connection successful and received connectionInfo as
+	  Base-URL: http://host.docker.internal:56001/v1/sessionHosts/542b967965ccff4d8eecb053bad7738fd0faed021005095ae91841178e357f55/heartbeats
+      RSession-Host-Id: 542b967965ccff4d8eecb053bad7738fd0faed021005095ae91841178e357f55
+      Log-Folder: /data/GameLogs/
+
+PlayFabMultiplayerAgentAPI connection successful and received connectionInfo as: PlayFab.MultiplayerAgent.Model.GameServerConnectionInfo
+      ;port with name gameport was found in GSDK Config Settings.
+
+#Errors:
+JCurl error 35: Cert handshake failed. Fatal error. UnityTls error code: 7
+      ERROR-CODE:ServiceUnavailable
+      =/Client/LoginWithCustomID: Unable to complete SSL connection
+
+#Logs:
+state: PlayFab.MultiplayerAgent.Model.HeartbeatRequest, payload: {"CurrentGameState":"StandingBy","CurrentGameHealth":"Healthy","CurrentPlayers":[]}
+
+%Server Started From Agent Activation
+>!~!~! PlayFab connection integrating with local Fishnet !~!~!
+ ?Started Server connection with address:127.0.0.1 and port:7777
+
+ /Operation: Active, Maintenance:, State: Active
+      Timer:1.016324 - Max:1
+       state: PlayFab.MultiplayerAgent.Model.HeartbeatRequest, payload: {"CurrentGameState":"Active","CurrentGameHealth":"Healthy","CurrentPlayers":[]}
+      1Operation: Continue, Maintenance:, State: Active

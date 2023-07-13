@@ -68,17 +68,20 @@ namespace PlayFab
         public static event OnSessionConfigUpdate OnSessionConfigUpdateEvent;
 
 
-        public static void Start()
+        public static void Start(string fileName = null)
         {
-            string fileName = Environment.GetEnvironmentVariable(GsdkConfigFileEnvVarKey);
-            if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
-            {
-                _gsdkconfig = _jsonInstance.DeserializeObject<GSDKConfiguration>(File.ReadAllText(fileName));
-            }
+            string checkFileName = Environment.GetEnvironmentVariable(GsdkConfigFileEnvVarKey);
+            if (!string.IsNullOrEmpty(checkFileName) && File.Exists(checkFileName))
+                fileName = checkFileName;
             else
+                Debug.LogWarning(string.Format("Environment variable {0} not defined", GsdkConfigFileEnvVarKey));
+
+            _gsdkconfig = _jsonInstance.DeserializeObject<GSDKConfiguration>(File.ReadAllText(fileName));
+            if (_gsdkconfig == null)
             {
-                Debug.LogError(string.Format("Environment variable {0} not defined", GsdkConfigFileEnvVarKey));
-                Application.Quit();
+                Debug.LogError(string.Format("GSDK Config file {0} not found", _gsdkconfig));
+                Debug.LogWarning("Application Quit Override!");
+                return;
             }
 
             _baseUrl = string.Format("http://{0}/v1/sessionHosts/{1}/heartbeats", _gsdkconfig.HeartbeatEndpoint, _gsdkconfig.SessionHostId);
@@ -92,9 +95,11 @@ namespace PlayFab
             }
             if (IsDebugging)
             {
-                Debug.Log(_baseUrl);
-                Debug.Log(_gsdkconfig.SessionHostId);
-                Debug.Log(_gsdkconfig.LogFolder);
+                string msg = "<-<-<-<-<- PlayFabMultiplayerAgentAPI Connection Config ->->->->->";
+                msg += "\nBase-URL: " + _baseUrl;
+                msg += "\nSession-Host-Id: "+_gsdkconfig.SessionHostId;
+                msg += "\nLog-Folder: "+ _gsdkconfig.LogFolder;
+                Debug.Log(msg);
             }
 
             //Create an agent that can talk on the main-thread and pull on an interval.
@@ -154,7 +159,12 @@ namespace PlayFab
 
         public static GameServerConnectionInfo GetGameServerConnectionInfo()
         {
-            return _gsdkconfig.GameServerConnectionInfo;
+            if (_gsdkconfig == null)
+                Start();
+            if (_gsdkconfig != null)
+                return _gsdkconfig.GameServerConnectionInfo;
+            else
+                return null;
         }
 
         public static void UpdateConnectedPlayers(IList<ConnectedPlayer> currentlyConnectedPlayers)
@@ -269,10 +279,9 @@ namespace PlayFab
                     CurrentErrorState = ErrorStates.Ok;
                     IsProcessing = false;
                 }
-            }
-         
-           
+            }           
         }
+
         private static void ProcessAgentResponse(HeartbeatResponse heartBeat)
         {
             SessionConfig.CopyNonNullFields(heartBeat.SessionConfig);

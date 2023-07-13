@@ -6,15 +6,21 @@ using PlayFab.Networking;
 using System.Collections.Generic;
 using PlayFab.MultiplayerAgent.Model;
 using System.Linq;
+using System.IO;
 
-public class AgentListener : MonoBehaviour {
-
+public class AgentListener : MonoBehaviour 
+{
     private List<ConnectedPlayer> _connectedPlayers;
     public bool Debugging = true;
+    public bool shouldRetryConnection = true;
+    public float retryConnectionTimer = 2f;
+    [SerializeField] private string GsdkConfigFileName = null;
+
     // Use this for initialization
     void Start () {
         _connectedPlayers = new List<ConnectedPlayer>();
-        PlayFabMultiplayerAgentAPI.Start();
+        Debug.Log("Given Config Path: " + Path.Combine(Application.dataPath, GsdkConfigFileName));
+        PlayFabMultiplayerAgentAPI.Start(Path.Combine(Application.dataPath, GsdkConfigFileName));
         PlayFabMultiplayerAgentAPI.IsDebugging = Debugging;
         PlayFabMultiplayerAgentAPI.OnMaintenanceCallback += OnMaintenance;
         PlayFabMultiplayerAgentAPI.OnShutDownCallback += OnShutdown;
@@ -24,15 +30,35 @@ public class AgentListener : MonoBehaviour {
         UnityNetworkServer.Instance.OnPlayerAdded.AddListener(OnPlayerAdded);
         UnityNetworkServer.Instance.OnPlayerRemoved.AddListener(OnPlayerRemoved);
 
+        SetupGSDK();
+        
+        StartCoroutine(ReadyForPlayers());
+    }
+    private void SetupGSDK()
+    {
         // get the port that the server will listen to
         // We *have to* do it on process mode, since there might be more than one game server instances on the same VM and we want to avoid port collision
         // On container mode, we can omit the below code and set the port directly, since each game server instance will run on its own network namespace. However, below code will work as well
         // we have to do that on process
         var connInfo = PlayFabMultiplayerAgentAPI.GetGameServerConnectionInfo();
+        if (connInfo == null)
+        {
+            Debug.LogError("Connection Failed as ConnectionInfo is not found!");
+            if (shouldRetryConnection)
+            {
+                Debug.Log("---------------" + "< Retrying Connection in " + retryConnectionTimer + "s >" + "---------------");
+                Invoke(nameof(SetupGSDK), retryConnectionTimer); // retry connection every few secs
+            }
+            return;
+        }
+        else
+        {
+            Debug.Log("PlayFabMultiplayerAgentAPI connection successful and received connectionInfo as: " + connInfo);
+        }
         // make sure the ListeningPortKey is the same as the one configured in your Build settings (either on LocalMultiplayerAgent or on MPS)
         const string ListeningPortKey = "gameport";
-        var portInfo = connInfo.GamePortsConfiguration.Where(x=>x.Name == ListeningPortKey);
-        if(portInfo.Count() > 0)
+        var portInfo = connInfo.GamePortsConfiguration.Where(x => x.Name == ListeningPortKey);
+        if (portInfo.Count() > 0)
         {
             Debug.Log(string.Format("port with name {0} was found in GSDK Config Settings.", ListeningPortKey));
             UnityNetworkServer.Instance.Port = portInfo.Single().ServerListeningPort;
@@ -43,8 +69,17 @@ public class AgentListener : MonoBehaviour {
             Debug.LogError(msg);
             throw new Exception(msg);
         }
-        
-        StartCoroutine(ReadyForPlayers());
+    }
+
+    private void OnEnable() 
+        // here i have put in a gameobject having networkobject comp,
+        // it disables and enables whenever not connected to server, easier to restart kindoff
+    {
+        if (shouldRetryConnection)
+        {
+            Debug.Log("Retrying Connection Agent Listener!");
+            Start();
+        }
     }
 
     IEnumerator ReadyForPlayers()
@@ -55,8 +90,8 @@ public class AgentListener : MonoBehaviour {
     
     private void OnServerActive()
     {
-        UnityNetworkServer.Instance.StartListen();
         Debug.Log("Server Started From Agent Activation");
+        UnityNetworkServer.Instance.StartListen(UnityNetworkServer.Type.Server);
         if(PlayFabMultiplayerAgentAPI.IsDebugging)
         {
             foreach (KeyValuePair<string,string> kvp in PlayFabMultiplayerAgentAPI.GetConfigSettings())

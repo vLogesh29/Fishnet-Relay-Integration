@@ -1,0 +1,27 @@
+{
+  "heartbeatEndpoint": "host.docker.internal:56001",
+  "sessionHostId": "542b967965ccff4d8eecb053bad7738fd0faed021005095ae91841178e357f55",
+  "vmId": "xcloudwusu4uyz5daouzl:WestUs:4bcbc6a7-484c-4b4e-a13a-aaab466a574b:tvmps_9ae8af264dcb42e3bc5b6f97f9b12535c04d7ba81e474d32af22f83d49e133d8_d",
+  "logFolder": "/data/GameLogs/",
+  "certificateFolder": "/data/GameCertificates",
+  "sharedContentFolder": "/data/GameSharedContent",
+  "buildMetadata": {
+    "Environment": "LOCAL",
+    "FeaturesEnabled": "List,Of,Features,Enabled"
+  },
+  "gamePorts": {
+    "gameport": "7777"
+  },
+  "publicIpV4Address": "127.0.0.1",
+  "gameServerConnectionInfo": {
+    "publicIpV4Adress": "127.0.0.1",
+    "gamePortsConfiguration": [
+      {
+        "name": "gameport",
+        "serverListeningPort": 7777,
+        "clientConnectionPort": 56100
+      }
+    ]
+  },
+  "fullyQualifiedDomainName": "localhost"
+}
