@@ -1640,7 +1640,7 @@ MonoBehaviour:
   _inputFieldParent: {fileID: 1914544383064740909}
   _serverIPField: {fileID: 1914544383362262493}
   _portNoField: {fileID: 1914544383150065727}
-  _serverAddress: 127.0.0.1
+  _serverAddress: localhost
   <AddressType>k__BackingField: 0
   _port: 7777
 --- !u!223 &2766938921314970829
