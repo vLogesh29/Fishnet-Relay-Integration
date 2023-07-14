@@ -260,7 +260,6 @@ namespace FishNet.Object
             if (replicatesHistory == null)
                 return;
 
-            Debug.LogError("Clearing");
             //Queue.
             while (replicatesQueue.Count > 0)
             {
@@ -644,7 +643,7 @@ namespace FishNet.Object
                     PredictionManager pm = PredictionManager;
                     bool consumeExcess = !pm.DropExcessiveReplicates;
                     //Number of entries to leave in buffer when consuming.
-                    const int leaveInBuffer = 2;
+                    int leaveInBuffer = (int)pm.QueuedInputs;
                     //Only consume if the queue count is over leaveInBuffer.
                     if (consumeExcess && count > leaveInBuffer)
                     {
@@ -1037,7 +1036,7 @@ namespace FishNet.Object
             PredictionManager pm = PredictionManager;
             bool consumeExcess = !pm.DropExcessiveReplicates;
             //Maximum number of replicates allowed to be queued at once.
-            int replicatesCountLimit = (consumeExcess) ? PredictionManager.MaximumReplicateConsumeCount : pm.GetMaximumServerReplicates();
+            int replicatesCountLimit = (consumeExcess) ? (TimeManager.TickRate * 2) : pm.GetMaximumServerReplicates();
             for (int i = 0; i < receivedReplicatesCount; i++)
             {
                 uint tick = arrBuffer[i].GetTick();
@@ -1056,7 +1055,7 @@ namespace FishNet.Object
             }
 
             if (IsServer && Owner.IsValid)
-                Owner.SetHighestQueueCount(replicates.Count, TimeManager.LocalTick);
+                Owner.AddAverageQueueCount((ushort)replicates.Count, TimeManager.LocalTick);
         }
 #else
         /// <summary>
@@ -1093,9 +1092,12 @@ namespace FishNet.Object
                     replicatesQueue.Enqueue(arrBuffer[i]);
                 }
             }
+
+            if (IsServer && Owner.IsValid)
+                Owner.AddAverageQueueCount((ushort)replicatesQueue.Count, TimeManager.LocalTick);
         }
 #endif
-
+         
 #if !PREDICTION_V2
         /// <summary>
         /// Checks conditions for a reconcile.
@@ -1321,9 +1323,7 @@ namespace FishNet.Object
         public void Reconcile_Reader_Internal<T>(PooledReader reader, ref T data, Channel channel) where T : IReconcileData
         {
             T newData = reader.Read<T>();
-            //Server will still get reconcile but should not perform it.
-            if (reader.Source == Reader.DataSource.Client)
-                return;
+
             uint tick = (IsOwner) ? PredictionManager.StateClientTick : PredictionManager.StateServerTick;
             /* //TODO old states cannot happen for reliable but can for unreliable.
              * Be sure to check if state is old before processing for unreliable.
