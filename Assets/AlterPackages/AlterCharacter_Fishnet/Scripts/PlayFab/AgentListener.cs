@@ -61,7 +61,7 @@ public class AgentListener : MonoBehaviour
         if (portInfo.Count() > 0)
         {
             Debug.Log(string.Format("port with name {0} was found in GSDK Config Settings.", ListeningPortKey));
-            UnityNetworkServer.Instance.Port = portInfo.Single().ServerListeningPort;
+            UnityNetworkServer.Instance.NetworkHUD.Port = portInfo.Single().ServerListeningPort;
         }
         else
         {

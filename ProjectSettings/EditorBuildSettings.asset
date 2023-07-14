@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/TestScene.unity
     guid: 46f9109d1609bfa42a0a4decd78e71fc
   - enabled: 0
+    path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/PlayFab-TestScene.unity
+    guid: 1254f8a1196a97f4dbfa808793d289d9
+  - enabled: 0
     path: Assets/AlterPackages/AlterCharacter_Fishnet/Scenes/Bootstrap.unity
     guid: d7d03d4380a20da40882d6c6bb2295e5
   - enabled: 0
